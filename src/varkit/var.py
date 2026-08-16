@@ -8,11 +8,11 @@ def historical_var(pnl, alpha=0.95):
     #Output: Returns the alpha VaR in terms of loss.
     if not 0<alpha<1:
         raise ValueError (f"alpha must be between 0 and 1, got {alpha}")
-    min_obs = int(np.ceil(1 / (1 - alpha)))
+    min_obs = int(np.ceil(1 / (1 - alpha)))    
+    pnl = pnl[~np.isnan(pnl)] 
     if len(pnl) < min_obs:
         raise ValueError(f"Need at least {min_obs} observations for {alpha:.0%} VaR, got {len(pnl)}")
     pnl = np.asarray(pnl, dtype=float) 
-    pnl = pnl[~np.isnan(pnl)] 
     sortpnl=np.sort(pnl)
     k=int(np.ceil((1-alpha)*len(pnl))-1)
     return -(sortpnl[k])

@@ -14,6 +14,10 @@ def parse_energi_payload(payload,currency='EUR'):
     '''
     if currency not in ['DKK','EUR']:
         raise ParsingError(f"currency {currency} is not EUR or DKK")
+    if len(payload['records'])<1:
+        raise ParsingError(f"No records found in payload")
+    if len(payload['records'])!=payload["total"]:
+        raise ParsingError(f"Truncated records returned from query")
     df=pd.DataFrame(payload['records'])
     if df.PriceArea.nunique()>1:
         raise ParsingError(f"Payload should be filtered by 1 pricing area")
