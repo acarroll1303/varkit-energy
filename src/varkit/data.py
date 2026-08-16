@@ -23,7 +23,14 @@ def parse_energi_payload(payload,currency='EUR'):
     return df
 
 def fetch_spot_price(area, start=None, end=None, currency='EUR'):
-    """Function to return pandas DataFrame from given filters to query api.energidataservice.dk/dataset/DayAheadPrices"""
+    '''
+    Return a pandas DataFrame from given filters to query api.energidataservice.dk/dataset/DayAheadPrices
+    Inputs: area -> Single area that price data is pulled for.
+            start -> Start Date for API request
+            end -> End Date for API request
+            currency -> Currency for prices: 'EUR' or 'DKK'
+    Ouput:  pandas Series with UTC timeindex, DayAheadPrice is given currency
+    '''
     r=requests.get("https://api.energidataservice.dk/dataset/DayAheadPrices", 
                    params={"filter":json.dumps({"PriceArea":area}), "start":start, "end":end}, timeout=30)
     r.raise_for_status()
@@ -34,3 +41,14 @@ def fetch_spot_price(area, start=None, end=None, currency='EUR'):
             f"Response from {r.url} was not JSON. First 200 chars: {r.text[:200]}"
         ) from err
     return parse_energi_payload(payload,currency=currency)
+
+def daily_peak_mean(priceseries):
+    '''
+    Returns pandas series of average peak time prices (0800-2000 CPH time) by day
+    Input:  priceseries-> pandas Series with UTC timeindex, DayAheadPrice
+    Output: pandas Series of daily peak hours mean
+    '''
+    s=priceseries.tz_convert("Europe/Copenhagen")
+    s=s.loc[(s.index.hour>=8)&(s.index.hour<20)]
+    s=s.resample('D').mean()
+    return s
