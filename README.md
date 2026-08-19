@@ -48,7 +48,7 @@ There are limitations to the estimates given from the historical VaR approach.
 
 Firstly, the values at the tails can differ by almost €10/MWh, and since this is an order-statistic and given a small enough sample size(N=321), 1 extra observation can move the estimated Value at Risk significantly. 
 
-Historical VaR gives no information about what's inside the tail. We know that there's roughly (1-/alpha)% probability that the loss will be less than the estimate, but nothing about how the probability of losses exceeding our estimate behaves. 
+Historical VaR gives no information about what's inside the tail. We know that there's roughly (/alpha)% probability that the loss will be less than the estimate, but nothing about how the probability of losses exceeding our estimate behaves. 
 
 This method also assumes volatility in the power markets is stable and deviations are drawn from the same distribution, which is false given the known heteroskedasticity of these markets. 
 
