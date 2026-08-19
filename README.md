@@ -39,6 +39,8 @@ Comparison Table for Historical VaR Estimates vs. a Normal Distribution.
 | 95.0% | €57.01 | €64.23 |
 | 99.0% | €104.54 | €90.88 |
 | 99.5% | €129.61 | €100.64 |
+
+
 The standard normal approach clearly and heavily underestimates the extreme tail probabilities in the table above, making a historical VaR approach clearer. 
 
 ## Limitations and Next Steps
