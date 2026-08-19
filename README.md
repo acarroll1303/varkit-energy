@@ -34,22 +34,22 @@ Electricity prices for a single market for the previous n(user input integer) da
 **Taken on the rolling window from 1st October 2025 to 19th August 2026.**
 
 Comparison Table for Historical VaR Estimates vs. a Normal Distribution.
-| alpha | Historical Estimate| Standard Normal Estimate |
+| alpha | Historical Estimate| Fitted Normal Estimate |
 | --- | --- | --- |
 | 95.0% | €57.01 | €64.23 |
 | 99.0% | €104.54 | €90.88 |
 | 99.5% | €129.61 | €100.64 |
-The standard normal approach clearly and heavily underestimates the tail probabilities in the table above, making a historical VaR approach clearer. 
+The standard normal approach clearly and heavily underestimates the extreme tail probabilities in the table above, making a historical VaR approach clearer. 
 
 ## Limitations and Next Steps
 There are limitations to the estimates given from the historical VaR approach.
 
 Firstly, the values at the tails can differ by almost €10/MWh, and since this is an order-statistic and given a small enough sample size(N=321), 1 extra observation can move the estimated Value at Risk significantly. 
 
-Historical VaR gives no information about what's inside the tail. We know that there's roughly x% probability that the loss will be less than the estimate, but nothing about how the probability of losses exceeding our estimate behaves. 
+Historical VaR gives no information about what's inside the tail. We know that there's roughly (1-/alpha)% probability that the loss will be less than the estimate, but nothing about how the probability of losses exceeding our estimate behaves. 
 
-This method also assumes volatility in the power markets is stable and deviations are drawn from the same distribution, which is false given the known heteroskedacticity of these markets. 
+This method also assumes volatility in the power markets is stable and deviations are drawn from the same distribution, which is false given the known heteroskedasticity of these markets. 
 
-Some of the next steps we can take to solve some of these include calculating applying out of sample validation, calculating expected shortfall and GARCH modelling for volatility. 
+Some of the next steps we can take to solve some of these include applying out of sample validation, calculating expected shortfall and GARCH modelling for volatility. 
 
    
